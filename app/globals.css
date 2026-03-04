@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{ color-scheme: dark; }
+
+html,body{ height:100%; }
+body{
+  margin:0;
+  background: radial-gradient(1200px 700px at 20% 10%, rgba(51,230,255,0.10), transparent 55%),
+              radial-gradient(1200px 700px at 85% 18%, rgba(168,85,247,0.10), transparent 60%),
+              linear-gradient(180deg, #06060A, #0B0B12 45%, #06060A);
+  color: rgba(255,255,255,0.92);
+  overflow-x:hidden;
+}
+
+/* subtle scanline */
+.scanlines{
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, rgba(255,255,255,0) 1px);
+  background-size: 100% 6px;
+  opacity: .12;
+  mix-blend-mode: overlay;
+  pointer-events:none;
+  animation: scanmove 6s linear infinite;
+}
+@keyframes scanmove{
+  from{ background-position: 0 0; }
+  to{ background-position: 0 120px; }
+}
+
+/* film grain */
+.grain{
+  background-image: url('/pulse/grain.png');
+  opacity: .10;
+  mix-blend-mode: overlay;
+  pointer-events:none;
+  filter: contrast(120%) brightness(110%);
+}
+
+@layer components{
+  .panel{
+    @apply bg-glass border border-line rounded-[22px] shadow-neon;
+    backdrop-filter: blur(16px);
+  }
+  .panelV{
+    @apply bg-glass border border-line rounded-[22px] shadow-neonV;
+    backdrop-filter: blur(16px);
+  }
+  .btn{
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-[18px]
+    border border-[rgba(255,255,255,0.14)] bg-[rgba(255,255,255,0.06)]
+    hover:bg-[rgba(255,255,255,0.10)] active:scale-[0.99] transition;
+  }
+  .btnC{ @apply border-[rgba(51,230,255,0.35)]; }
+  .btnV{ @apply border-[rgba(168,85,247,0.35)]; }
+  .input{
+    @apply w-full px-4 py-2 rounded-[18px] bg-[rgba(0,0,0,0.25)]
+    border border-[rgba(255,255,255,0.12)]
+    focus:outline-none focus:ring-2 focus:ring-[rgba(51,230,255,0.25)] focus:border-[rgba(51,230,255,0.35)];
+  }
+  .label{ @apply text-sm text-muted; }
+  .chip{
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full
+    border border-[rgba(255,255,255,0.12)] bg-[rgba(0,0,0,0.18)] text-sm text-muted;
+  }
+}
